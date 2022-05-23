@@ -19,7 +19,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false,length = 40,name = "name")
+    @Column(unique = true, nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
-    private Categories categoryName;
+    private Categories title;
 }

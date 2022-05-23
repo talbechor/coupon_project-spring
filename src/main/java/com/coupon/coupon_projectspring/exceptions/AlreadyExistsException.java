@@ -7,7 +7,7 @@ public class AlreadyExistsException extends Exception{
         super();
     }
 
-    public AlreadyExistsException(ClientType clientType) {
+    public AlreadyExistsException(ExceptionType clientType) {
         super(clientType + " Already exist in the system");
     }
 }

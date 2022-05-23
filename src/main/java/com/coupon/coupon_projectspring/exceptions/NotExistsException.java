@@ -7,7 +7,7 @@ public class NotExistsException extends Exception{
         super();
     }
 
-    public NotExistsException(ClientType clientType) {
+    public NotExistsException(ExceptionType clientType) {
         super(clientType + " Not exist in the system" );
     }
 }

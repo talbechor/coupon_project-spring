@@ -8,7 +8,7 @@ import com.coupon.coupon_projectspring.exceptions.AlreadyExistsException;
 import com.coupon.coupon_projectspring.exceptions.LoginException;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
 import com.coupon.coupon_projectspring.exceptions.TokenException;
-import com.coupon.coupon_projectspring.login.LoginManager;
+import com.coupon.coupon_projectspring.service.LoginManager;
 import com.coupon.coupon_projectspring.service.CompanyServiceIml;
 import com.coupon.coupon_projectspring.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class CompanyController {
         jwtUtils.checkUser(token, ClientType.COMPANY);
         companyService.addCoupon(coupon);
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token)).build();
+                .header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
 
@@ -47,7 +47,7 @@ public class CompanyController {
         jwtUtils.checkUser(token, ClientType.COMPANY);
         companyService.updateCoupon(coupon);
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token)).build();
+                .header("Authorization", jwtUtils.generateToken(token)).build();
 
     }
 
@@ -56,7 +56,7 @@ public class CompanyController {
         jwtUtils.checkUser(token, ClientType.COMPANY);
         companyService.deleteCoupon(id);
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token)).build();
+                .header("Authorization", jwtUtils.generateToken(token)).build();
     }
 
 
@@ -64,7 +64,7 @@ public class CompanyController {
     public ResponseEntity<?> getCompanyCoupons(@RequestHeader(name = "Authorization") String token) throws NotExistsException, TokenException, LoginException {
         jwtUtils.checkUser(token, ClientType.COMPANY);
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token))
+                .header("Authorization", jwtUtils.generateToken(token))
                 .body(companyService.getCompanyCoupons());
 
     }
@@ -72,9 +72,8 @@ public class CompanyController {
     @GetMapping("/companyCouponsByCategory/{cat}")
     public ResponseEntity<?> getCompanyCouponsByCategory(@RequestHeader(name = "Authorization") String token, @PathVariable Categories cat) throws NotExistsException, LoginException, TokenException {
         jwtUtils.checkUser(token, ClientType.COMPANY);
-
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token))
+                .header("Authorization", jwtUtils.generateToken(token))
                 .body(companyService.getCompanyCoupons(cat));
 
     }
@@ -82,9 +81,8 @@ public class CompanyController {
     @GetMapping("/companyCouponsByMaxPrice/{maxPrice}")
     public ResponseEntity<?> getCompanyCouponsByMaxPrice(@RequestHeader(name = "Authorization") String token, @PathVariable double maxPrice) throws NotExistsException, TokenException, LoginException {
         jwtUtils.checkUser(token, ClientType.COMPANY);
-
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token))
+                .header("Authorization", jwtUtils.generateToken(token))
                 .body(companyService.getCompanyCoupons(maxPrice));
 
     }
@@ -93,7 +91,7 @@ public class CompanyController {
     public ResponseEntity<?> getCompanyDetails(@RequestHeader(name = "Authorization") String token) throws LoginException, TokenException {
         jwtUtils.checkUser(token, ClientType.COMPANY);
         return ResponseEntity.ok()
-                .header("Authorization", jwtUtils.checkUser(token))
+                .header("Authorization", jwtUtils.generateToken(token))
                 .body(companyService.getCompanyDetails());
 
     }

@@ -9,5 +9,7 @@ public enum Categories {
 
 
     public final int VALUE = 1 + ordinal();
-
+    public int getValue() {
+        return VALUE;
+    }
 }

@@ -1,4 +1,4 @@
-package com.coupon.coupon_projectspring.dailyTask;
+package com.coupon.coupon_projectspring.job;
 
 
 import com.coupon.coupon_projectspring.repository.CouponRepository;
@@ -19,7 +19,7 @@ public class CouponExpirationDailyJob {
     @Scheduled(cron = "0 29 17 * * ? " , zone = "Asia/Jerusalem")
     public void eraseCoupon(){
 
-        couponRepository.deleteExpiredCouponsFromTableCVC();
+        couponRepository.deletePurchasedExpiredCoupons();
         couponRepository.deleteExpiredCoupons();
         System.out.println("delete Coupon");
 

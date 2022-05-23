@@ -1,4 +1,4 @@
-package com.coupon.coupon_projectspring.login;
+package com.coupon.coupon_projectspring.service;
 
 import com.coupon.coupon_projectspring.beans.ClientType;
 import com.coupon.coupon_projectspring.beans.UserDetails;
@@ -45,12 +45,5 @@ public class LoginManager {
         }
 
     }
-    /*
-    ClientService clientFacade = switch (clientType) {
-            case ADMIN -> adminService;
-            case COMPANY -> companyService;
-            case CUSTOMER -> customerService;
-            default -> null;
-        };
-     */
+
 }

@@ -5,6 +5,7 @@ import com.coupon.coupon_projectspring.beans.ClientType;
 import com.coupon.coupon_projectspring.beans.Company;
 import com.coupon.coupon_projectspring.beans.Coupon;
 
+import com.coupon.coupon_projectspring.exceptions.ExceptionType;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
 import com.coupon.coupon_projectspring.service.serviceDAO.CompanyService;
 import org.springframework.stereotype.Service;
@@ -40,17 +41,17 @@ public class CompanyServiceIml extends ClientService implements CompanyService {
         if (couponRepository.findByCompany_idAndId(this.companyID, coupon.getId()).isPresent()) {
             couponRepository.save(coupon);
         } else {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
     }
 
     @Override
     public void deleteCoupon(int couponID) throws NotExistsException {
         if (couponRepository.findByCompany_idAndId(this.companyID, couponID).isPresent()) {
-            couponRepository.deleteCouponFromTableCustomer_vs_Coupon(couponID);
+            couponRepository.deleteCouponPurchaseByCouponID(couponID);
             couponRepository.deleteById(couponID);
         } else {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
     }
 
@@ -58,7 +59,7 @@ public class CompanyServiceIml extends ClientService implements CompanyService {
     public List<Coupon> getCompanyCoupons() throws NotExistsException {
         List<Coupon> coupons = couponRepository.findAllByCompany_id(this.companyID);
         if (coupons.isEmpty()) {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
         return coupons;
     }
@@ -67,7 +68,7 @@ public class CompanyServiceIml extends ClientService implements CompanyService {
     public List<Coupon> getCompanyCoupons(Categories category) throws NotExistsException {
         List<Coupon> coupons = couponRepository.findAllByCompany_idAndCategory_id(this.companyID, category.VALUE);
         if (coupons.isEmpty()) {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
         return coupons;
     }
@@ -76,7 +77,7 @@ public class CompanyServiceIml extends ClientService implements CompanyService {
     public List<Coupon> getCompanyCoupons(double maxPrice) throws NotExistsException {
         List<Coupon> coupons = couponRepository.findAllByPriceLessThanEqualAndCompany_id(maxPrice,companyID);
         if (coupons.isEmpty()) {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
         return coupons;
     }

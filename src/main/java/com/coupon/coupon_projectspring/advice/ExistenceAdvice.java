@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class ExistenceAdvice {
-    @ExceptionHandler(value = {NotExistsException.class, AlreadyExistsException.class})
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public ErrorDetails handleException(Exception error) {
-        return new ErrorDetails("Error ", error.getMessage());
+    @ExceptionHandler(value = {NotExistsException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDetails handleNotExistException(Exception err) {
+        return new ErrorDetails("Not Exist Error", err.getMessage());
+    }
+
+    @ExceptionHandler(value = AlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDetails handleAlreadyExistsException(Exception err) {
+        return new ErrorDetails("Already Exists Error", err.getMessage());
     }
 }

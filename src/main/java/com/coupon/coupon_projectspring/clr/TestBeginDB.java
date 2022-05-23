@@ -29,17 +29,17 @@ public class TestBeginDB implements CommandLineRunner {
 
     private void createCategoryTable() {
         Category category1 = Category.builder()
-                .categoryName(Categories.FOOD)
+                .title(Categories.FOOD)
                 .build();
 
         Category category2 = Category.builder()
-                .categoryName(Categories.ELECTRICITY)
+                .title(Categories.ELECTRICITY)
                 .build();
         Category category3 = Category.builder()
-                .categoryName(Categories.RESTAURANT)
+                .title(Categories.RESTAURANT)
                 .build();
         Category category4 = Category.builder()
-                .categoryName(Categories.VACATION)
+                .title(Categories.VACATION)
                 .build();
         categoryRepository.saveAll(List.of(category1, category2, category3, category4));
 

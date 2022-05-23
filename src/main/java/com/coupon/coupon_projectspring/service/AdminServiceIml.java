@@ -3,7 +3,7 @@ package com.coupon.coupon_projectspring.service;
 import com.coupon.coupon_projectspring.beans.ClientType;
 import com.coupon.coupon_projectspring.beans.Company;
 import com.coupon.coupon_projectspring.beans.Customer;
-import com.coupon.coupon_projectspring.exceptions.AlreadyExistsException;
+import com.coupon.coupon_projectspring.exceptions.ExceptionType;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
 import com.coupon.coupon_projectspring.service.serviceDAO.AdminService;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class AdminServiceIml extends ClientService implements AdminService {
         if (companyRepository.findByNameAndId(company.getName(), company.getId()).isPresent()) {
             companyRepository.save(company);
         } else {
-            throw new NotExistsException(ClientType.COMPANY);
+            throw new NotExistsException(ExceptionType.COMPANY);
         }
 
     }
@@ -36,10 +36,10 @@ public class AdminServiceIml extends ClientService implements AdminService {
     public void deleteCompany(int companyID) throws NotExistsException {
 
         if (companyRepository.existsById(companyID)) {
-            couponRepository.deleteCouponsFromTableCustomer_vs_CouponByCompanyId(companyID);
+            couponRepository.deleteCompanyCoupons(companyID);
             companyRepository.deleteById(companyID);
         } else {
-            throw new NotExistsException(ClientType.COMPANY);
+            throw new NotExistsException(ExceptionType.COMPANY);
         }
 
     }
@@ -48,7 +48,7 @@ public class AdminServiceIml extends ClientService implements AdminService {
     public List<Company> getAllCompanies() throws NotExistsException {
         List<Company> companies = companyRepository.findAll();
         if (companies.isEmpty()) {
-            throw new NotExistsException(ClientType.COMPANY);
+            throw new NotExistsException(ExceptionType.COMPANY);
         }
         return companies;
 
@@ -57,7 +57,7 @@ public class AdminServiceIml extends ClientService implements AdminService {
     @Override
     public Company getOneCompany(int companyID) throws NotExistsException {
         return companyRepository.findById(companyID)
-                .orElseThrow(() -> new NotExistsException(ClientType.COMPANY));
+                .orElseThrow(() -> new NotExistsException(ExceptionType.COMPANY));
     }
 
     @Override
@@ -70,17 +70,17 @@ public class AdminServiceIml extends ClientService implements AdminService {
         if (customerRepository.existsById(customer.getId())) {
             customerRepository.save(customer);
         } else {
-            throw new NotExistsException(ClientType.CUSTOMER);
+            throw new NotExistsException(ExceptionType.CUSTOMER);
         }
     }
 
     @Override
     public void deleteCustomer(int customerId) throws NotExistsException {
         if (customerRepository.existsById(customerId)) {
-            couponRepository.deleteCustomerFromTableCustomer_vs_Coupon(customerId);
+            couponRepository.deleteCouponPurchaseByCustomerID(customerId);
             customerRepository.deleteById(customerId);
         } else {
-            throw new NotExistsException(ClientType.CUSTOMER);
+            throw new NotExistsException(ExceptionType.CUSTOMER);
         }
 
     }
@@ -89,7 +89,7 @@ public class AdminServiceIml extends ClientService implements AdminService {
     public List<Customer> getAllCustomers() throws NotExistsException {
         List<Customer> customers = customerRepository.findAll();
         if (customers.isEmpty()) {
-            throw new NotExistsException(ClientType.CUSTOMER);
+            throw new NotExistsException(ExceptionType.CUSTOMER);
         }
         return customers;
     }
@@ -97,6 +97,6 @@ public class AdminServiceIml extends ClientService implements AdminService {
     @Override
     public Customer getOneCustomer(int customerId) throws NotExistsException {
         return customerRepository.findById(customerId)
-                .orElseThrow(() -> new NotExistsException(ClientType.CUSTOMER));
+                .orElseThrow(() -> new NotExistsException(ExceptionType.CUSTOMER));
     }
 }

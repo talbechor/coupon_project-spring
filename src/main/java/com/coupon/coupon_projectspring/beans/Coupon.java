@@ -21,35 +21,33 @@ public class Coupon {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id", nullable = false)
     @JsonIgnore
     private Company company;
 
-
     @ManyToOne
-    @Enumerated(EnumType.STRING)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category category;
 
-    @Column(length = 40)
+    @Column(nullable = false, length = 30)
     private String title;
 
-    @Column(length = 40)
+    @Column(nullable = false, length = 50)
     private String description;
 
-    @Column(name = "start_date")
+    @Column(nullable = false)
     private Date startDate;
 
-    @Column(name = "end_date")
+    @Column(nullable = false)
     private Date endDate;
 
-    @Column(name = "amount")
+    @Column(nullable = false)
     private int amount;
 
-    @Column(name = "price")
+    @Column(nullable = false)
     private double price;
 
-    @Column(length = 40)
+    @Column(nullable = false, length = 50)
     private String image;
 
 

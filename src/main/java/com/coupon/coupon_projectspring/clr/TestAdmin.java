@@ -7,7 +7,7 @@ import com.coupon.coupon_projectspring.beans.Customer;
 import com.coupon.coupon_projectspring.beans.UserDetails;
 import com.coupon.coupon_projectspring.exceptions.AlreadyExistsException;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
-import com.coupon.coupon_projectspring.login.LoginManager;
+import com.coupon.coupon_projectspring.service.LoginManager;
 import com.coupon.coupon_projectspring.repository.CustomerRepository;
 import com.coupon.coupon_projectspring.service.AdminServiceIml;
 
@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 
 //@Component

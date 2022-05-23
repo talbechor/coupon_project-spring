@@ -92,6 +92,12 @@ public class JWTUtils {
         }
 
     }
+    public String generateToken(String token) {
+        Map<String, Object> claims = new HashMap<>();
+        Claims myClaims = extractAllClaims(token);
+        claims.put("clientType", myClaims.get("clientType"));
+        return createToken(claims, myClaims.getSubject());
+    }
 
     // create method to check user valid 2
     public String checkUser(String token) throws MalformedJwtException,ExpiredJwtException, SignatureException {

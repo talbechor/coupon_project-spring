@@ -5,16 +5,26 @@ import com.coupon.coupon_projectspring.beans.ClientType;
 import com.coupon.coupon_projectspring.beans.Coupon;
 import com.coupon.coupon_projectspring.beans.Customer;
 import com.coupon.coupon_projectspring.exceptions.AlreadyExistsException;
+import com.coupon.coupon_projectspring.exceptions.ExceptionType;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
 import com.coupon.coupon_projectspring.service.serviceDAO.CustomerService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CustomerServiceIml extends ClientService implements CustomerService {
     private int customerID;
+    /**
+     * Performs a login check for a customer
+     *
+     * @param email    Login email
+     * @param password Login password
+     * @return boolean that determines if the login was successful, while updating the local variable customerID
+     */
     @Override
     public boolean login(String email, String password) throws NotExistsException {
         Optional<Customer> customerOptional = customerRepository.findByEmailAndPassword(email, password);
@@ -22,45 +32,46 @@ public class CustomerServiceIml extends ClientService implements CustomerService
             this.customerID = customerOptional.get().getId();
             return true;
         } else {
-            throw new NotExistsException(ClientType.CUSTOMER);
+            throw new NotExistsException(ExceptionType.CUSTOMER);
         }
     }
 
     @Override
-    public void purchaseCoupon(Coupon coupon) throws AlreadyExistsException, NotExistsException {
+    public void purchaseCoupon(int couponID ) throws AlreadyExistsException, NotExistsException {
 
-        if (couponRepository.countCouponPurchase(customerID, coupon.getId()) > 0) {
-            throw new AlreadyExistsException(ClientType.COUPON);
-        }
-        if (!couponRepository.existsById(coupon.getId())) {
-            throw new NotExistsException(ClientType.COUPON);
-        }
-        if (couponRepository.countCouponAmountById(coupon.getId()) == 0) {
-            throw new NotExistsException(ClientType.COUPON);
-        }
-        if (couponRepository.countCouponExpiredById(coupon.getId()) == 0) {
-            throw new NotExistsException(ClientType.COUPON);
-        }
-        couponRepository.addCouponPurchaseCustomer(this.customerID, coupon.getId());
-        couponRepository.updateCouponAmount(coupon.getId());
+        Optional<Coupon> optionalCoupon = couponRepository.findById(couponID);
 
+        if (optionalCoupon.isEmpty()) {
+            throw new NotExistsException(ExceptionType.COUPON);
+        }
+        if (couponRepository.countCouponPurchase(this.customerID, couponID) > 0) {
+            throw new AlreadyExistsException(ExceptionType.COUPON);
+        }
+        if (optionalCoupon.get().getAmount() == 0) {
+            throw new NotExistsException(ExceptionType.COUPON);
+        }
+        if (optionalCoupon.get().getEndDate().before(Date.valueOf(LocalDate.now()))) {
+            throw new NotExistsException(ExceptionType.COUPON);
+        }
+        couponRepository.addCouponPurchase(this.customerID, couponID);
+        couponRepository.decreaseCouponAmount(couponID);
 
     }
 
     @Override
     public List<Coupon> getCustomerCoupons() throws NotExistsException {
-        List<Coupon> coupons = couponRepository.getCouponsCustomer(this.customerID);
+        List<Coupon> coupons = couponRepository.getAllCouponsCustomer(this.customerID);
         if (coupons.isEmpty()) {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
         return coupons;
     }
 
     @Override
     public List<Coupon> getCustomerCouponsByCategory(Categories category) throws NotExistsException {
-        List<Coupon> coupons = couponRepository.getCouponCustomerByCategory(this.customerID, category.VALUE);
+        List<Coupon> coupons = couponRepository.getAllCouponCustomerByCategory(this.customerID, category.VALUE);
         if (coupons.isEmpty()) {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
         return coupons;
 
@@ -68,9 +79,9 @@ public class CustomerServiceIml extends ClientService implements CustomerService
 
     @Override
     public List<Coupon> getCustomerCouponsByMaxPrice(double maxPrice) throws NotExistsException {
-        List<Coupon> coupons = couponRepository.getCouponsPrice(this.customerID, maxPrice);
+        List<Coupon> coupons = couponRepository.getAllCouponsCustomerByPrice(this.customerID, maxPrice);
         if (coupons.isEmpty()) {
-            throw new NotExistsException(ClientType.COUPON);
+            throw new NotExistsException(ExceptionType.COUPON);
         }
         return coupons;
     }

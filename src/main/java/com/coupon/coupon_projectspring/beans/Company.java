@@ -19,21 +19,19 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false
-            , length = 25, unique = true)
+    @Column(unique = true, nullable = false, length = 30)
     private String name;
 
-    @Column(nullable = false, length = 40, unique = true)
+    @Column(unique = true, nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false
-            , length = 25)
+    @Column(nullable = false, length = 15)
     private String password;
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
     @JsonIgnore
-    private List<Coupon> coupons = new ArrayList<>();
+    private List<Coupon> coupons;
 
 
 }

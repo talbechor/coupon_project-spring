@@ -1,22 +1,19 @@
 package com.coupon.coupon_projectspring.clr;
 
-import com.coupon.coupon_projectspring.beans.Categories;
 import com.coupon.coupon_projectspring.beans.ClientType;
 import com.coupon.coupon_projectspring.beans.UserDetails;
 import com.coupon.coupon_projectspring.exceptions.AlreadyExistsException;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
-import com.coupon.coupon_projectspring.login.LoginManager;
+import com.coupon.coupon_projectspring.service.LoginManager;
 import com.coupon.coupon_projectspring.repository.CategoryRepository;
 import com.coupon.coupon_projectspring.repository.CompanyRepository;
 import com.coupon.coupon_projectspring.repository.CouponRepository;
 import com.coupon.coupon_projectspring.service.CustomerServiceIml;
 
-import com.coupon.coupon_projectspring.utils.TablePrinter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 //@Component
 @RequiredArgsConstructor
@@ -49,7 +46,7 @@ public class TestCustomer implements CommandLineRunner {
     }
 
     private void purchaseCoupon(CustomerServiceIml customerService) throws AlreadyExistsException, NotExistsException {
-        customerService.purchaseCoupon(couponRepository.getById(2));
-        customerService.purchaseCoupon(couponRepository.getById(1));
+        customerService.purchaseCoupon(2);
+        customerService.purchaseCoupon(1);
     }
 }

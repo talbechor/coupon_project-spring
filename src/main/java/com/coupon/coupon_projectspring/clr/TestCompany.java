@@ -2,25 +2,22 @@ package com.coupon.coupon_projectspring.clr;
 
 
 
-import com.coupon.coupon_projectspring.beans.Categories;
 import com.coupon.coupon_projectspring.beans.ClientType;
 
 import com.coupon.coupon_projectspring.beans.Coupon;
 import com.coupon.coupon_projectspring.beans.UserDetails;
 import com.coupon.coupon_projectspring.exceptions.AlreadyExistsException;
 import com.coupon.coupon_projectspring.exceptions.NotExistsException;
-import com.coupon.coupon_projectspring.login.LoginManager;
+import com.coupon.coupon_projectspring.service.LoginManager;
 
 
 import com.coupon.coupon_projectspring.repository.CategoryRepository;
 import com.coupon.coupon_projectspring.repository.CompanyRepository;
 import com.coupon.coupon_projectspring.service.CompanyServiceIml;
-import com.coupon.coupon_projectspring.utils.TablePrinter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 
 import java.sql.Date;

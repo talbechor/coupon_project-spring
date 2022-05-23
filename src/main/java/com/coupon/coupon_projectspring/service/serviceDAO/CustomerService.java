@@ -11,7 +11,7 @@ import java.util.List;
 public interface CustomerService {
     boolean login(String email, String password) throws NotExistsException;
 
-    void purchaseCoupon(Coupon coupon) throws AlreadyExistsException, NotExistsException;
+    void purchaseCoupon(int couponID) throws AlreadyExistsException, NotExistsException;
 
     List<Coupon> getCustomerCoupons() throws NotExistsException;
 

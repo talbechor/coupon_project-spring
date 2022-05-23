@@ -19,23 +19,23 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 15)
     private String firstName;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 15)
     private String lastName;
 
-    @Column(nullable = false, length = 40,unique = true)
+    @Column(unique = true, nullable = false, length = 50)
     private String email;
 
-    @Column(nullable = false, length = 40)
+    @Column(nullable = false, length = 15)
     private String password;
 
     @ToString.Exclude
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "customers_vs_coupons")
     @JsonIgnore
-    private List<Coupon> coupons = new ArrayList<>();
+    private List<Coupon> coupons;
 
 
 }
