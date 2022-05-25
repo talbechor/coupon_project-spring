@@ -25,7 +25,6 @@ public class CustomerController {
     private final JWTUtils jwtUtils;
 
 
-
     @PostMapping("/purchase")
     public ResponseEntity<?> purchaseCoupon(@RequestHeader(name = "Authorization") String token, @PathVariable int couponID) throws TokenException, LoginException, AlreadyExistsException, NotExistsException {
         jwtUtils.checkUser(token, ClientType.CUSTOMER);

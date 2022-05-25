@@ -1,5 +1,6 @@
 package com.coupon.coupon_projectspring.beans;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name = "coupons" ,uniqueConstraints = {@UniqueConstraint(columnNames = {"company_id","title"})})
+
 public class Coupon {
 
     @Id

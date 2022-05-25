@@ -1,5 +1,6 @@
 package com.coupon.coupon_projectspring.beans;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,8 +31,7 @@ public class Company {
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
-    @JsonIgnore
-    private List<Coupon> coupons;
+    private List<Coupon> coupons= new ArrayList<>();
 
 
 }

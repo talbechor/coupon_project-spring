@@ -12,28 +12,20 @@ import com.coupon.coupon_projectspring.service.LoginManager;
 import com.coupon.coupon_projectspring.service.AdminServiceIml;
 import com.coupon.coupon_projectspring.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 @RequestMapping("/admin")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class AdminController {
     private final AdminServiceIml adminService;
-    private final LoginManager loginManager;
     private final JWTUtils jwtUtils;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDetails userDetails) throws NotExistsException, LoginException {
-        userDetails.setClientType(ClientType.ADMIN);
-        AdminServiceIml adminService = (AdminServiceIml) loginManager.login(userDetails);
-        return new ResponseEntity<>(jwtUtils.generateToken(userDetails), HttpStatus.OK);
-
-    }
 
     @PostMapping("/addCompany")
     @CrossOrigin
@@ -106,7 +98,7 @@ public class AdminController {
 
     }
 
-    @DeleteMapping("/deleteCustomer{id}")
+    @DeleteMapping("/deleteCustomer/{id}")
     public ResponseEntity<?> deleteCustomer(@RequestHeader(name = "Authorization") String token, @PathVariable int id) throws NotExistsException, LoginException, TokenException {
         jwtUtils.checkUser(token, ClientType.ADMIN);
         adminService.deleteCustomer(id);

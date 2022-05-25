@@ -21,16 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CompanyController {
     private final CompanyServiceIml companyService;
-    private final LoginManager loginManager;
     private final JWTUtils jwtUtils;
-
-    @PostMapping("/login")
-    public ResponseEntity<?> companyLogin(@RequestBody UserDetails userDetails) throws NotExistsException, LoginException {
-        userDetails.setClientType(ClientType.COMPANY);
-        CompanyServiceIml companyService = (CompanyServiceIml) loginManager.login(userDetails);
-        return new ResponseEntity<>(jwtUtils.generateToken(userDetails), HttpStatus.OK);
-
-    }
 
 
     @PostMapping("/addCoupon")

@@ -8,6 +8,7 @@ import com.coupon.coupon_projectspring.service.CompanyServiceIml;
 import com.coupon.coupon_projectspring.service.CustomerServiceIml;
 import com.coupon.coupon_projectspring.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +26,10 @@ public class LoginController {
 
     @PostMapping("/login")
     @CrossOrigin
-    public ResponseEntity<?> userLogin(@RequestBody UserDetails userDetails) throws NotExistsException, LoginException {
+    public ResponseEntity<?> userLogin( @RequestBody UserDetails userDetails) throws NotExistsException, LoginException {
         if (loginManager.login(userDetails)!= null) {
-            return ResponseEntity.ok()
-                    .header(jwtUtils.generateToken(userDetails)).build();
-            //return new ResponseEntity<>(jwtUtils.generateToken(userDetails), HttpStatus.OK);
+           return ResponseEntity.ok()
+                    .header("Authorization", jwtUtils.generateToken(userDetails)).build();
         } else {
             throw new LoginException();
         }
