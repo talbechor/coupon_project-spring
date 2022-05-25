@@ -33,7 +33,8 @@ public class LoginManager {
             case CUSTOMER:
                 clientFacade = customerService;
                 break;
-            default: throw new LoginException();
+            default:
+                throw new LoginException();
 
         }
 

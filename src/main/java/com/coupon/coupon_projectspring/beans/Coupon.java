@@ -1,12 +1,11 @@
 package com.coupon.coupon_projectspring.beans;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Getter

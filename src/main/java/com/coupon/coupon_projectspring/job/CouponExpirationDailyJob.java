@@ -16,7 +16,7 @@ public class CouponExpirationDailyJob {
     private final CouponRepository couponRepository;
 
 
-    @Scheduled(cron = "0 29 17 * * ? " , zone = "Asia/Jerusalem")
+    @Scheduled(cron = "0 0 0 * * ? ", zone = "Asia/Jerusalem")
     public void eraseCoupon(){
 
         couponRepository.deletePurchasedExpiredCoupons();

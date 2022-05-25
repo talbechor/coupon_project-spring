@@ -16,20 +16,20 @@ import java.util.Optional;
 @Service
 public class CompanyServiceIml extends ClientService implements CompanyService {
     private int companyID;
+
     @Override
     public boolean login(String email, String password) throws NotExistsException {
         Optional<Company> companyOptional = companyRepository.findByEmailAndPassword(email, password);
         if (companyOptional.isPresent()) {
             this.companyID = companyOptional.get().getId();
             return true;
-
         } else {
-           return false;
+            return false;
         }
     }
 
     @Override
-    public void addCoupon(Coupon coupon)  {
+    public void addCoupon(Coupon coupon) {
         coupon.setCompany(getCompanyDetails());
         couponRepository.save(coupon);
 
@@ -75,7 +75,7 @@ public class CompanyServiceIml extends ClientService implements CompanyService {
 
     @Override
     public List<Coupon> getCompanyCoupons(double maxPrice) throws NotExistsException {
-        List<Coupon> coupons = couponRepository.findAllByPriceLessThanEqualAndCompany_id(maxPrice,companyID);
+        List<Coupon> coupons = couponRepository.findAllByPriceLessThanEqualAndCompany_id(maxPrice, companyID);
         if (coupons.isEmpty()) {
             throw new NotExistsException(ExceptionType.COUPON);
         }

@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 public class CustomerServiceIml extends ClientService implements CustomerService {
     private int customerID;
+
     /**
      * Performs a login check for a customer
      *
@@ -37,7 +38,7 @@ public class CustomerServiceIml extends ClientService implements CustomerService
     }
 
     @Override
-    public void purchaseCoupon(int couponID ) throws AlreadyExistsException, NotExistsException {
+    public void purchaseCoupon(int couponID) throws AlreadyExistsException, NotExistsException {
 
         Optional<Coupon> optionalCoupon = couponRepository.findById(couponID);
 

@@ -31,6 +31,7 @@ public class Company {
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
+    @JsonIgnore
     private List<Coupon> coupons= new ArrayList<>();
 
 

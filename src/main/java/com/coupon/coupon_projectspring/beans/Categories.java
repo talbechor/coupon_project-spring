@@ -6,8 +6,6 @@ public enum Categories {
     RESTAURANT,
     VACATION;
 
-
-
     public final int VALUE = 1 + ordinal();
     public int getValue() {
         return VALUE;

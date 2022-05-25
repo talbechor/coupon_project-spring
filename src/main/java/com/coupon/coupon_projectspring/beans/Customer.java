@@ -37,7 +37,7 @@ public class Customer {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "customers_vs_coupons")
     @JsonIgnore
-    private List<Coupon> coupons;
+    private List<Coupon> coupons=new ArrayList<>();
 
 
 }
