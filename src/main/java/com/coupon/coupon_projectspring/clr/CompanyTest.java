@@ -1,4 +1,4 @@
-package com.coupon.coupon_projectspring.clr1;
+package com.coupon.coupon_projectspring.clr;
 
 import com.coupon.coupon_projectspring.beans.Categories;
 import com.coupon.coupon_projectspring.beans.ClientType;
