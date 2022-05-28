@@ -36,7 +36,13 @@ public class CustomerServiceIml extends ClientService implements CustomerService
             throw new NotExistsException(ExceptionType.CUSTOMER);
         }
     }
-
+    /**
+     * Checks if a coupon is valid for purchase and purchases it for the customer
+     *
+     * @param couponID ID of a coupon to purchase
+     * @throws NotExistsException      If the coupon does not exist in the database, has an amount of 0 or is expired
+     * @throws AlreadyExistsException If the coupon was already purchased by the customer
+     */
     @Override
     public void purchaseCoupon(int couponID) throws AlreadyExistsException, NotExistsException {
 
@@ -58,7 +64,12 @@ public class CustomerServiceIml extends ClientService implements CustomerService
         couponRepository.decreaseCouponAmount(couponID);
 
     }
-
+    /**
+     * Gets all coupons of a customer from the database by customer's ID
+     *
+     * @return A list of coupons that belongs to a customer by ID
+     * @throws NotExistsException If no coupons were found
+     */
     @Override
     public List<Coupon> getCustomerCoupons() throws NotExistsException {
         List<Coupon> coupons = couponRepository.getAllCouponsCustomer(this.customerID);
@@ -67,7 +78,13 @@ public class CustomerServiceIml extends ClientService implements CustomerService
         }
         return coupons;
     }
-
+    /**
+     * Gets all coupons of a customer from the database by customer's ID and a category
+     *
+     * @param category The category of the coupons which will be retrieved from the database
+     * @return A list of all the coupons of this customer with the given category that exists in the database
+     * @throws NotExistsException If no coupons were found
+     */
     @Override
     public List<Coupon> getCustomerCouponsByCategory(Categories category) throws NotExistsException {
         List<Coupon> coupons = couponRepository.getAllCouponCustomerByCategory(this.customerID, category.VALUE);
@@ -77,7 +94,13 @@ public class CustomerServiceIml extends ClientService implements CustomerService
         return coupons;
 
     }
-
+    /**
+     * Gets all coupons of a customer from the database by customer's ID and a price limit
+     *
+     * @param maxPrice The price limit of the coupons which will be retrieved from the database
+     * @return A list of all the coupons of this customer with the given price limit that exists in the database
+     * @throws NotExistsException If no coupons were found
+     */
     @Override
     public List<Coupon> getCustomerCouponsByMaxPrice(double maxPrice) throws NotExistsException {
         List<Coupon> coupons = couponRepository.getAllCouponsCustomerByPrice(this.customerID, maxPrice);
@@ -86,7 +109,11 @@ public class CustomerServiceIml extends ClientService implements CustomerService
         }
         return coupons;
     }
-
+    /**
+     * Gets the customer's details from the database
+     *
+     * @return The details of this customer, that will be retrieved from the database
+     */
     @Override
     public Customer getCustomerDetails() {
         return customerRepository.findById(this.customerID).get();

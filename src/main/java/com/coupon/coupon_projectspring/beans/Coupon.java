@@ -53,19 +53,5 @@ public class Coupon {
 
 
 
-    @Override
-    public String toString() {
-        return "Coupon{" +
-                "id=" + id +
-                ", company=" + company +
-                ", category=" + category +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", amount=" + amount +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                '}';
-    }
+
 }

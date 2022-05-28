@@ -63,17 +63,17 @@ public class AdminTest implements CommandLineRunner {
         System.out.println();
 
         System.out.println("Deleting company");
-        admin.deleteCompany(3);
+        admin.deleteCompany(2);
 //        TablePrinter.print(admin.getAllCompanies()); doesn't work - failed to lazily initialize
         admin.getAllCompanies().forEach(System.out::println);
         System.out.println();
 
         System.out.println("Updating company");
         admin.updateCompany(Company.builder()
-                .id(2)
-                .name("Lea INC")
-                .email("noreply@lea.inc")
-                .password("leasInc")
+                .id(3)
+                .name("Tal INC")
+                .email("tal@gmail.inc")
+                .password("taltal")
                 .build());
 
 //        TablePrinter.print(admin.getAllCompanies()); doesn't work - failed to lazily initialize
@@ -109,18 +109,18 @@ public class AdminTest implements CommandLineRunner {
         System.out.println();
 
         System.out.println("Deleting customer");
-        admin.deleteCustomer(3);
+        admin.deleteCustomer(2);
 //        TablePrinter.print(admin.getAllCustomers()); doesn't work - failed to lazily initialize
         admin.getAllCustomers().forEach(System.out::println);
         System.out.println();
 
         System.out.println("Updating customer");
         admin.updateCustomer(Customer.builder()
-                .id(2)
-                .firstName("Lea")
-                .lastName("Sad")
-                .email("leas@gmail.com")
-                .password("leaLea")
+                .id(3)
+                .firstName("tal")
+                .lastName("Bechor")
+                .email("tal@gmail.com")
+                .password("taltal")
                 .build());
 
 //        TablePrinter.print(admin.getAllCustomers()); doesn't work - failed to lazily initialize

@@ -101,7 +101,7 @@ public class CompanyTest implements CommandLineRunner {
 
     private void companyTest2() throws Exception {
         CompanyServiceIml company2 = (CompanyServiceIml) loginService.login(
-                new UserDetails("noreply@lea.inc", "leasInc", ClientType.COMPANY));
+                new UserDetails("tal@gmail.inc", "taltal", ClientType.COMPANY));
 
         company2.addCoupon(Coupon.builder()
 //                .company(company2.getCompanyDetails())
